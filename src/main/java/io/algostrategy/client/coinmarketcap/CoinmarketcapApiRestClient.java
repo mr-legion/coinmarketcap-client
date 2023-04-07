@@ -1,12 +1,14 @@
 package io.algostrategy.client.coinmarketcap;
 
 import io.algostrategy.client.coinmarketcap.domain.Response;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoStatus;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
 import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.param.SortField;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The API facade, supporting synchronous/blocking access REST API.
@@ -16,7 +18,7 @@ public interface CoinmarketcapApiRestClient {
     // Cryptocurrency endpoints
 
     /**
-     * Get all cryptocurrencies without auxiliary fields.
+     * Get all cryptocurrencies exclude auxiliary fields.
      *
      * @param start offset the start (1-based index)
      * @param limit specify the number of results, valid value: [1 .. 5000]
@@ -41,4 +43,31 @@ public interface CoinmarketcapApiRestClient {
                                               SortField sortField,
                                               String[] symbols,
                                               AuxiliaryField[] auxiliaryFields);
+
+    /**
+     * Get cryptocurrency metadata.
+     *
+     * @param ids for displaying
+     * @param auxiliaryFields to include auxiliary fields
+     * @return cryptocurrency metadata
+     */
+    Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids, AuxiliaryField[] auxiliaryFields);
+
+    /**
+     * Get cryptocurrency metadata.
+     *
+     * @param ids             for displaying
+     * @param slugs           slugs to return
+     * @param symbols         symbols to return
+     * @param address         address to return
+     * @param skipInvalid     skip validation rules
+     * @param auxiliaryFields to include auxiliary fields
+     * @return cryptocurrency metadata
+     */
+    Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids,
+                                                             String[] slugs,
+                                                             String[] symbols,
+                                                             String address,
+                                                             Boolean skipInvalid,
+                                                             AuxiliaryField[] auxiliaryFields);
 }

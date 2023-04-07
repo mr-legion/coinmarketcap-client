@@ -2,14 +2,15 @@ package io.algostrategy.client.coinmarketcap.impl;
 
 import io.algostrategy.client.coinmarketcap.CoinmarketcapApiRestClient;
 import io.algostrategy.client.coinmarketcap.domain.Response;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoStatus;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
 import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.param.SortField;
+import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
 
@@ -38,29 +39,32 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
                                                      SortField sortField,
                                                      String[] symbols,
                                                      AuxiliaryField[] auxiliaryFields) {
-        String comaSeparator = ",";
-
-        String cryptoStatusesStr = null;
-        if (cryptoStatuses != null) {
-            cryptoStatusesStr = Arrays.stream(cryptoStatuses)
-                    .map(cryptoStatus -> cryptoStatus.toString().toLowerCase())
-                    .collect(Collectors.joining(comaSeparator));
-        }
-
-        String symbolsStr = null;
-        if (symbols != null) {
-            symbolsStr = String.join(comaSeparator, symbols);
-        }
-
-        String auxiliaryFieldsStr = null;
-        if (auxiliaryFields != null) {
-            auxiliaryFieldsStr = Arrays.stream(auxiliaryFields)
-                    .map(auxiliaryField -> auxiliaryField.toString().toLowerCase())
-                    .collect(Collectors.joining(comaSeparator));
-        }
-
+        String cryptoStatusesStr = ArrayUtils.arrayToString(cryptoStatuses);
+        String symbolsStr = ArrayUtils.arrayToString(symbols);
+        String auxiliaryFieldsStr = ArrayUtils.arrayToString(auxiliaryFields);
         return executeSync(coinmarketcapApiService.getCryptocurrencies(
                 cryptoStatusesStr, start, limit, sortField, symbolsStr, auxiliaryFieldsStr
+        ));
+    }
+
+    @Override
+    public Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids, AuxiliaryField[] auxiliaryFields) {
+        return getCryptoMetadata(ids, null, null, null, null, auxiliaryFields);
+    }
+
+    @Override
+    public Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids,
+                                                                    String[] slugs,
+                                                                    String[] symbols,
+                                                                    String address,
+                                                                    Boolean skipInvalid,
+                                                                    AuxiliaryField[] auxiliaryFields) {
+        String idsStr = ArrayUtils.arrayToString(ids);
+        String slugsStr = ArrayUtils.arrayToString(slugs);
+        String symbolsStr = ArrayUtils.arrayToString(symbols);
+        String auxiliaryFieldsStr = ArrayUtils.arrayToString(auxiliaryFields);
+        return executeSync(coinmarketcapApiService.getCryptocurrencyInfo(
+                idsStr, slugsStr, symbolsStr, address, skipInvalid, auxiliaryFieldsStr
         ));
     }
 }

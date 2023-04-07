@@ -9,5 +9,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public enum CryptoStatus {
     ACTIVE,
     INACTIVE,
-    UNTRACKED
+    UNTRACKED;
+
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }

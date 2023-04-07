@@ -1,6 +1,7 @@
 package io.algostrategy.client.coinmarketcap.impl;
 
 import io.algostrategy.client.coinmarketcap.domain.Response;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
 import io.algostrategy.client.coinmarketcap.param.SortField;
 import retrofit2.Call;
@@ -9,6 +10,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.algostrategy.client.coinmarketcap.constant.CoinmarketcapApiConstants.AUTHORIZATION_REQUIRED_HEADER;
 
@@ -27,5 +29,15 @@ public interface CoinmarketcapApiService {
             @Query("limit") Integer limit,
             @Query("sort") SortField sortField,
             @Query(value = "symbol", encoded = true) String symbols,
+            @Query(value = "aux", encoded = true) String aux);
+
+    @Headers(AUTHORIZATION_REQUIRED_HEADER)
+    @GET("/v2/cryptocurrency/info")
+    Call<Response<Map<Integer, CryptoMetadata>>> getCryptocurrencyInfo(
+            @Query(value = "id", encoded = true) String ids,
+            @Query(value = "slug", encoded = true) String slugs,
+            @Query(value = "symbol", encoded = true) String symbols,
+            @Query("address") String address,
+            @Query("skip_invalid") Boolean skipInvalid,
             @Query(value = "aux", encoded = true) String aux);
 }
