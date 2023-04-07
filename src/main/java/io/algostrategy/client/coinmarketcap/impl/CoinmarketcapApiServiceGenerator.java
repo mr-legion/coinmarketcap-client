@@ -1,10 +1,10 @@
 package io.algostrategy.client.coinmarketcap.impl;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.exception.CoinmarketcapApiException;
 import io.algostrategy.client.coinmarketcap.security.AuthenticationInterceptor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -14,8 +14,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-
-import static io.algostrategy.client.coinmarketcap.constant.CoinmarketcapApiConstants.API_BASE_URL;
 
 /**
  * Generates an API implementation based on {@link CoinmarketcapApiService}.
@@ -39,14 +37,14 @@ public class CoinmarketcapApiServiceGenerator {
         this.client = client;
     }
 
-    public <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null);
+    public <S> S createService(Class<S> serviceClass, String baseUrl) {
+        return createService(serviceClass, baseUrl, null);
     }
 
-    public <S> S createService(Class<S> serviceClass, String apiKey) {
+    public <S> S createService(Class<S> serviceClass, String baseUrl, String apiKey) {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(converterFactory);
 
         if (apiKey == null) {

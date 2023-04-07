@@ -5,6 +5,8 @@ import io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiService;
 import io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator;
 import okhttp3.OkHttpClient;
 
+import static io.algostrategy.client.coinmarketcap.constant.CoinmarketcapApiConstants.API_BASE_URL;
+
 /**
  * A factory for creating API client objects.
  */
@@ -62,6 +64,7 @@ public class CoinmarketcapApiClientFactory {
      * Creates a new synchronous/blocking REST client.
      */
     public CoinmarketcapApiRestClient newRestClient() {
-        return new CoinmarketcapApiRestClientImpl(serviceGenerator.createService(CoinmarketcapApiService.class, apiKey));
+        return new CoinmarketcapApiRestClientImpl(
+                serviceGenerator.createService(CoinmarketcapApiService.class, API_BASE_URL, apiKey));
     }
 }
