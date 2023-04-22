@@ -4,6 +4,7 @@ import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoStatus;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
+import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.param.SortField;
 
@@ -47,7 +48,7 @@ public interface CoinmarketcapApiRestClient {
     /**
      * Get cryptocurrency metadata.
      *
-     * @param ids for displaying
+     * @param ids             for displaying
      * @param auxiliaryFields to include auxiliary fields
      * @return cryptocurrency metadata
      */
@@ -70,4 +71,29 @@ public interface CoinmarketcapApiRestClient {
                                                              String address,
                                                              Boolean skipInvalid,
                                                              AuxiliaryField[] auxiliaryFields);
+
+    // Currency endpoints
+
+    /**
+     * Get only currencies.
+     *
+     * @param start offset the start (1-based index)
+     * @param limit specify the number of results, valid value: [1 .. 5000]
+     * @return currencies
+     */
+    Response<List<Currency>> getOnlyCurrencies(Integer start, Integer limit);
+
+    /**
+     * Get currencies.
+     *
+     * @param start         offset the start (1-based index)
+     * @param limit         specify the number of results, valid value: [1 .. 5000]
+     * @param sortField     what field to sort the list
+     * @param includeMetals pass true to include precious metals
+     * @return currencies
+     */
+    Response<List<Currency>> getCurrencies(Integer start,
+                                           Integer limit,
+                                           SortField sortField,
+                                           Boolean includeMetals);
 }

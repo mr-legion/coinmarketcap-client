@@ -5,6 +5,7 @@ import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoStatus;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
+import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.param.SortField;
 import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
@@ -66,5 +67,20 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
         return executeSync(coinmarketcapApiService.getCryptocurrencyInfo(
                 idsStr, slugsStr, symbolsStr, address, skipInvalid, auxiliaryFieldsStr
         ));
+    }
+
+    // Currency endpoints
+
+    @Override
+    public Response<List<Currency>> getOnlyCurrencies(Integer start, Integer limit) {
+        return executeSync(coinmarketcapApiService.getCurrencies(start, limit, null, false));
+    }
+
+    @Override
+    public Response<List<Currency>> getCurrencies(Integer start,
+                                                  Integer limit,
+                                                  SortField sortField,
+                                                  Boolean includeMetals) {
+        return executeSync(coinmarketcapApiService.getCurrencies(start, limit, sortField, includeMetals));
     }
 }

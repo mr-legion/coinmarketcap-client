@@ -3,6 +3,7 @@ package io.algostrategy.client.coinmarketcap.impl;
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
+import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.param.SortField;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -40,4 +41,12 @@ public interface CoinmarketcapApiService {
             @Query("address") String address,
             @Query("skip_invalid") Boolean skipInvalid,
             @Query(value = "aux", encoded = true) String aux);
+
+    // Fiat endpoints
+    @Headers(AUTHORIZATION_REQUIRED_HEADER)
+    @GET("/v1/fiat/map")
+    Call<Response<List<Currency>>> getCurrencies(@Query("start") Integer start,
+                                                 @Query("limit") Integer limit,
+                                                 @Query("sort") SortField sortField,
+                                                 @Query("include_metals") Boolean includeMetals);
 }

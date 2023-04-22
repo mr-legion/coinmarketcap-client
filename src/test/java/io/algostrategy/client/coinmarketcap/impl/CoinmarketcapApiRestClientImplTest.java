@@ -5,6 +5,7 @@ import io.algostrategy.client.coinmarketcap.CoinmarketcapApiRestClient;
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
+import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
 import org.hamcrest.collection.IsMapWithSize;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,5 +61,19 @@ public class CoinmarketcapApiRestClientImplTest {
         );
         assertNotNull(response);
         assertThat(response.getData(), allOf(notNullValue(), is(not(IsMapWithSize.anEmptyMap()))));
+    }
+
+    @Test
+    public void getOnlyCurrencies_ShouldReturnCurrencies() {
+        Response<List<Currency>> response = coinmarketcapApiRestClient.getOnlyCurrencies(null, null);
+        assertNotNull(response);
+        assertThat(response.getData(), is(not(empty())));
+    }
+
+    @Test
+    public void getCurrencies_ShouldReturnCurrencies() {
+        Response<List<Currency>> response = coinmarketcapApiRestClient.getCurrencies(null, null, null, null);
+        assertNotNull(response);
+        assertThat(response.getData(), is(not(empty())));
     }
 }

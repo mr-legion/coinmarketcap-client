@@ -5,6 +5,7 @@ package io.algostrategy.client.coinmarketcap.param;
  */
 public enum SortField {
     ID("id"),
+    NAME("name"),
     RANK("cmc_rank");
 
     private final String name;
