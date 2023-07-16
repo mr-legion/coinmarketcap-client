@@ -33,6 +33,9 @@ public class CryptoMetadata {
 
     private Platform platform;
 
+    @JsonProperty("contract_address")
+    private List<TokenContract> tokenContracts;
+
     private Urls urls;
 
     private List<String> tags;
