@@ -49,10 +49,13 @@ public interface CoinmarketcapApiRestClient {
      * Get cryptocurrency metadata.
      *
      * @param ids             for displaying
+     * @param skipInvalid     skip validation rules
      * @param auxiliaryFields to include auxiliary fields
      * @return cryptocurrency metadata
      */
-    Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids, AuxiliaryField[] auxiliaryFields);
+    Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids,
+                                                             Boolean skipInvalid,
+                                                             AuxiliaryField[] auxiliaryFields);
 
     /**
      * Get cryptocurrency metadata.

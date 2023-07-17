@@ -48,7 +48,7 @@ public class CoinmarketcapApiRestClientImplTest {
     public void getCryptoMetadata_ShouldReturnCryptoMetadataIncludeAUX() {
         Integer[] ids = {1, 2, 3};
         AuxiliaryField[] fields = {AuxiliaryField.URLS};
-        Response<Map<Integer, CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(ids, fields);
+        Response<Map<Integer, CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(ids, true, fields);
         assertNotNull(response);
         assertThat(response.getData(), allOf(notNullValue(), is(not(IsMapWithSize.anEmptyMap()))));
     }
