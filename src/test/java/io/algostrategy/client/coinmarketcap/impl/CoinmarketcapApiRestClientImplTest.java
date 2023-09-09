@@ -29,8 +29,8 @@ public class CoinmarketcapApiRestClientImplTest {
     }
 
     @Test
-    public void getAllCryptosExcludeAUX_ShouldReturnAllCryptosExcludeAUX() {
-        Response<List<Cryptocurrency>> response = coinmarketcapApiRestClient.getAllCryptosExcludeAUX(1, 100);
+    public void getCryptosExcludeAUX_ShouldReturnCryptosExcludeAUX() {
+        Response<List<Cryptocurrency>> response = coinmarketcapApiRestClient.getCryptosExcludeAUX(1, 100);
         assertNotNull(response);
         assertThat(response.getData(), is(not(empty())));
     }

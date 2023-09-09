@@ -21,11 +21,18 @@ public interface CoinmarketcapApiRestClient {
     /**
      * Get all cryptocurrencies exclude auxiliary fields.
      *
+     * @return cryptocurrencies
+     */
+    List<Cryptocurrency> getAllCryptosExcludeAUX();
+
+    /**
+     * Get cryptocurrencies exclude auxiliary fields.
+     *
      * @param start offset the start (1-based index)
      * @param limit specify the number of results, valid value: [1 .. 5000]
      * @return cryptocurrencies
      */
-    Response<List<Cryptocurrency>> getAllCryptosExcludeAUX(Integer start, Integer limit);
+    Response<List<Cryptocurrency>> getCryptosExcludeAUX(Integer start, Integer limit);
 
     /**
      * Get cryptocurrencies.
