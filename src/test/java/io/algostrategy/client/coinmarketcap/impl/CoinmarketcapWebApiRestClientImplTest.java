@@ -22,6 +22,11 @@ public class CoinmarketcapWebApiRestClientImplTest {
             CoinmarketcapWebApiClientFactory.newInstance().newRestClient();
 
     @Test
+    public void test() {
+        coinmarketcapWebApiRestClient.getAllDEXPools();
+    }
+
+    @Test
     public void getMarkets_ShouldReturnMarkets() {
         Response<Exchange> response = coinmarketcapWebApiRestClient.getMarkets(270, SPOT, 1, 100);
         assertNotNull(response);
@@ -29,8 +34,8 @@ public class CoinmarketcapWebApiRestClientImplTest {
     }
 
     @Test
-    public void getAllDEXPools_ShouldReturnDEXPools() {
-        Response<Page<List<DEXPool>>> response = coinmarketcapWebApiRestClient.getAllDEXPools(1, RANK);
+    public void getDEXPools_ShouldReturnAllDEXPools() {
+        Response<Page<List<DEXPool>>> response = coinmarketcapWebApiRestClient.getDEXPools(1, RANK);
         assertNotNull(response);
         assertThat(response.getData().getData(), is(not(empty())));
     }

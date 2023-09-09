@@ -7,14 +7,19 @@ import io.algostrategy.client.coinmarketcap.domain.web.DEXPool;
 import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
 import io.algostrategy.client.coinmarketcap.param.WebSortField;
+import lombok.extern.java.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
+import static io.algostrategy.client.coinmarketcap.param.WebSortField.RANK;
+import static java.util.logging.Level.WARNING;
 
 /**
  * Implementation of Web REST API using Retrofit with synchronous/blocking method calls.
  */
+@Log
 public class CoinmarketcapWebApiRestClientImpl implements CoinmarketcapWebApiRestClient {
 
     private final CoinmarketcapWebApiService coinmarketcapWebApiService;
@@ -31,7 +36,25 @@ public class CoinmarketcapWebApiRestClientImpl implements CoinmarketcapWebApiRes
     }
 
     @Override
-    public Response<Page<List<DEXPool>>> getAllDEXPools(Integer page, WebSortField sortField) {
+    public List<DEXPool> getAllDEXPools() {
+
+        Page<List<DEXPool>> firstPage = getDEXPools(1, RANK).getData();
+        int totalPages = (int) Math.ceil((double) firstPage.getTotal() / firstPage.getCount());
+
+        List<DEXPool> dexPools = new ArrayList<>(firstPage.getData());
+        for (int i = 2; i <= totalPages; i++) {
+            try {
+                dexPools.addAll(getDEXPools(i, RANK).getData().getData());
+            } catch (Exception e) {
+                log.log(WARNING, "Failed to load DEX pools sorted by rank, page " + i, e);
+            }
+        }
+
+        return dexPools;
+    }
+
+    @Override
+    public Response<Page<List<DEXPool>>> getDEXPools(Integer page, WebSortField sortField) {
         return getDEXPools(null, null, page, sortField);
     }
 

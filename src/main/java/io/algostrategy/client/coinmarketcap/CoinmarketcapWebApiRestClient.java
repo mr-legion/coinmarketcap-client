@@ -28,13 +28,21 @@ public interface CoinmarketcapWebApiRestClient {
     Response<Exchange> getMarkets(Integer exchangeId, MarketCategory category, Integer start, Integer limit);
 
     /**
-     * Get all DEX pools.
+     * Get all existing DEX pools. The execution takes long time and
+     * some pools may be skipped if some requests fails.
+     *
+     * @return DEX pools
+     */
+    List<DEXPool> getAllDEXPools();
+
+    /**
+     * Get DEX pools.
      *
      * @param page      page number
      * @param sortField what field to sort the list
      * @return DEX pools
      */
-    Response<Page<List<DEXPool>>> getAllDEXPools(Integer page, WebSortField sortField);
+    Response<Page<List<DEXPool>>> getDEXPools(Integer page, WebSortField sortField);
 
     /**
      * Get DEX pools.
