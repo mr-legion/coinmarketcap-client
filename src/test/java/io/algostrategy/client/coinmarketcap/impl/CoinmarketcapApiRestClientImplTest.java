@@ -7,12 +7,10 @@ import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
-import org.hamcrest.collection.IsMapWithSize;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -48,19 +46,19 @@ public class CoinmarketcapApiRestClientImplTest {
     public void getCryptoMetadata_ShouldReturnCryptoMetadataIncludeAUX() {
         Integer[] ids = {1, 2, 3};
         AuxiliaryField[] fields = {AuxiliaryField.URLS};
-        Response<Map<Integer, CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(ids, true, fields);
-        assertNotNull(response);
-        assertThat(response.getData(), allOf(notNullValue(), is(not(IsMapWithSize.anEmptyMap()))));
+        List<CryptoMetadata> cryptoMetadataList = coinmarketcapApiRestClient.getCryptoMetadata(ids, true, fields);
+        assertNotNull(cryptoMetadataList);
+        assertThat(cryptoMetadataList, is(not(empty())));
     }
 
     @Test
     public void getCryptoMetadata_ShouldReturnCryptoMetadata() {
         Integer[] ids = {1, 2, 3};
-        Response<Map<Integer, CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(
+        List<CryptoMetadata> cryptoMetadataList = coinmarketcapApiRestClient.getCryptoMetadata(
                 ids, null, null, null, null, null
         );
-        assertNotNull(response);
-        assertThat(response.getData(), allOf(notNullValue(), is(not(IsMapWithSize.anEmptyMap()))));
+        assertNotNull(cryptoMetadataList);
+        assertThat(cryptoMetadataList, is(not(empty())));
     }
 
     @Test

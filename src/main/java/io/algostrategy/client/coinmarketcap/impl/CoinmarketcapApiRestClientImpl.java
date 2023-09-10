@@ -9,16 +9,20 @@ import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.param.SortField;
 import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
+import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
+import static io.algostrategy.client.coinmarketcap.util.ArrayUtils.concatIntToFixedStr;
+import static java.util.logging.Level.WARNING;
 
 /**
  * Implementation of REST API using Retrofit with synchronous/blocking method calls.
  */
+@Log
 public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClient {
 
     private final CoinmarketcapApiService coinmarketcapApiService;
@@ -68,26 +72,39 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
     }
 
     @Override
-    public Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids,
-                                                                    Boolean skipInvalid,
-                                                                    AuxiliaryField[] auxiliaryFields) {
+    public List<CryptoMetadata> getCryptoMetadata(Integer[] ids,
+                                                  Boolean skipInvalid,
+                                                  AuxiliaryField[] auxiliaryFields) {
         return getCryptoMetadata(ids, null, null, null, skipInvalid, auxiliaryFields);
     }
 
     @Override
-    public Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids,
-                                                                    String[] slugs,
-                                                                    String[] symbols,
-                                                                    String address,
-                                                                    Boolean skipInvalid,
-                                                                    AuxiliaryField[] auxiliaryFields) {
-        String idsStr = ArrayUtils.arrayToString(ids);
+    public List<CryptoMetadata> getCryptoMetadata(Integer[] ids,
+                                                  String[] slugs,
+                                                  String[] symbols,
+                                                  String address,
+                                                  Boolean skipInvalid,
+                                                  AuxiliaryField[] auxiliaryFields) {
+
+        List<String> idPacks = concatIntToFixedStr(ids, 1500);
         String slugsStr = ArrayUtils.arrayToString(slugs);
         String symbolsStr = ArrayUtils.arrayToString(symbols);
         String auxiliaryFieldsStr = ArrayUtils.arrayToString(auxiliaryFields);
-        return executeSync(coinmarketcapApiService.getCryptocurrencyInfo(
-                idsStr, slugsStr, symbolsStr, address, skipInvalid, auxiliaryFieldsStr
-        ));
+
+        List<CryptoMetadata> cryptoMetadataList = new ArrayList<>();
+        for (String idPack : idPacks) {
+            try {
+                Response<Map<Integer, CryptoMetadata>> response = executeSync(
+                        coinmarketcapApiService.getCryptocurrencyInfo(
+                                idPack, slugsStr, symbolsStr, address, skipInvalid, auxiliaryFieldsStr
+                        ));
+                cryptoMetadataList.addAll(response.getData().values());
+            } catch (Exception e) {
+                log.log(WARNING, "Failed to load crypto metadata", e);
+            }
+        }
+
+        return cryptoMetadataList;
     }
 
     // Currency endpoints

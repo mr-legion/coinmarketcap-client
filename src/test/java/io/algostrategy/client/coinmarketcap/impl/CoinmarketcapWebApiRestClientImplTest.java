@@ -22,11 +22,6 @@ public class CoinmarketcapWebApiRestClientImplTest {
             CoinmarketcapWebApiClientFactory.newInstance().newRestClient();
 
     @Test
-    public void test() {
-        coinmarketcapWebApiRestClient.getAllDEXPools();
-    }
-
-    @Test
     public void getMarkets_ShouldReturnMarkets() {
         Response<Exchange> response = coinmarketcapWebApiRestClient.getMarkets(270, SPOT, 1, 100);
         assertNotNull(response);

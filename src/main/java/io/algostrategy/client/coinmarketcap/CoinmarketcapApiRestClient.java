@@ -9,7 +9,6 @@ import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.param.SortField;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * The API facade, supporting synchronous/blocking access REST API.
@@ -53,19 +52,21 @@ public interface CoinmarketcapApiRestClient {
                                               AuxiliaryField[] auxiliaryFields);
 
     /**
-     * Get cryptocurrency metadata.
+     * Get all cryptocurrency metadata. The execution takes long time and
+     * some cryptocurrency metadata may be skipped if some requests fails.
      *
      * @param ids             for displaying
      * @param skipInvalid     skip validation rules
      * @param auxiliaryFields to include auxiliary fields
      * @return cryptocurrency metadata
      */
-    Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids,
-                                                             Boolean skipInvalid,
-                                                             AuxiliaryField[] auxiliaryFields);
+    List<CryptoMetadata> getCryptoMetadata(Integer[] ids,
+                                           Boolean skipInvalid,
+                                           AuxiliaryField[] auxiliaryFields);
 
     /**
-     * Get cryptocurrency metadata.
+     * Get all cryptocurrency metadata. The execution takes long time and
+     * some cryptocurrency metadata may be skipped if some requests fails.
      *
      * @param ids             for displaying
      * @param slugs           slugs to return
@@ -75,12 +76,12 @@ public interface CoinmarketcapApiRestClient {
      * @param auxiliaryFields to include auxiliary fields
      * @return cryptocurrency metadata
      */
-    Response<Map<Integer, CryptoMetadata>> getCryptoMetadata(Integer[] ids,
-                                                             String[] slugs,
-                                                             String[] symbols,
-                                                             String address,
-                                                             Boolean skipInvalid,
-                                                             AuxiliaryField[] auxiliaryFields);
+    List<CryptoMetadata> getCryptoMetadata(Integer[] ids,
+                                           String[] slugs,
+                                           String[] symbols,
+                                           String address,
+                                           Boolean skipInvalid,
+                                           AuxiliaryField[] auxiliaryFields);
 
     // Currency endpoints
 
