@@ -1,4 +1,4 @@
-package io.algostrategy.client.coinmarketcap.param;
+package io.algostrategy.client.coinmarketcap.domain.cryptocurrency;
 
 /**
  * The auxiliary fields.

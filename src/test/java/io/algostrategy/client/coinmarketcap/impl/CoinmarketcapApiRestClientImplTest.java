@@ -6,7 +6,7 @@ import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
-import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

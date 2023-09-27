@@ -4,7 +4,7 @@ import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
-import io.algostrategy.client.coinmarketcap.param.SortField;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.SortField;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -47,6 +47,6 @@ public interface CoinmarketcapApiService {
     @GET("/v1/fiat/map")
     Call<Response<List<Currency>>> getCurrencies(@Query("start") Integer start,
                                                  @Query("limit") Integer limit,
-                                                 @Query("sort") SortField sortField,
+                                                 @Query("sort") io.algostrategy.client.coinmarketcap.domain.fiat.SortField sortField,
                                                  @Query("include_metals") Boolean includeMetals);
 }

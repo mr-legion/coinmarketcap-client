@@ -7,14 +7,14 @@ import io.algostrategy.client.coinmarketcap.domain.web.DEXPool;
 import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.web.Market;
 import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
-import io.algostrategy.client.coinmarketcap.param.WebSortField;
+import io.algostrategy.client.coinmarketcap.domain.web.SortField;
 import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
-import static io.algostrategy.client.coinmarketcap.param.WebSortField.RANK;
+import static io.algostrategy.client.coinmarketcap.domain.web.SortField.RANK;
 import static java.util.logging.Level.WARNING;
 
 /**
@@ -79,12 +79,12 @@ public class CoinmarketcapWebApiRestClientImpl implements CoinmarketcapWebApiRes
     }
 
     @Override
-    public Response<Page<List<DEXPool>>> getDEXPools(Integer page, WebSortField sortField) {
+    public Response<Page<List<DEXPool>>> getDEXPools(Integer page, SortField sortField) {
         return getDEXPools(null, null, page, sortField);
     }
 
     @Override
-    public Response<Page<List<DEXPool>>> getDEXPools(Integer chainId, Integer dexId, Integer page, WebSortField sortField) {
+    public Response<Page<List<DEXPool>>> getDEXPools(Integer chainId, Integer dexId, Integer page, SortField sortField) {
         return executeSync(coinmarketcapWebApiService.getDEXPools(chainId, dexId, page, sortField));
     }
 }

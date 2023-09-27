@@ -6,7 +6,7 @@ import io.algostrategy.client.coinmarketcap.domain.web.DEXPool;
 import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.web.Market;
 import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
-import io.algostrategy.client.coinmarketcap.param.WebSortField;
+import io.algostrategy.client.coinmarketcap.domain.web.SortField;
 
 import java.util.List;
 
@@ -53,7 +53,7 @@ public interface CoinmarketcapWebApiRestClient {
      * @param sortField what field to sort the list
      * @return DEX pools
      */
-    Response<Page<List<DEXPool>>> getDEXPools(Integer page, WebSortField sortField);
+    Response<Page<List<DEXPool>>> getDEXPools(Integer page, SortField sortField);
 
     /**
      * Get DEX pools.
@@ -64,5 +64,5 @@ public interface CoinmarketcapWebApiRestClient {
      * @param sortField what field to sort the list
      * @return DEX pools
      */
-    Response<Page<List<DEXPool>>> getDEXPools(Integer chainId, Integer dexId, Integer page, WebSortField sortField);
+    Response<Page<List<DEXPool>>> getDEXPools(Integer chainId, Integer dexId, Integer page, SortField sortField);
 }

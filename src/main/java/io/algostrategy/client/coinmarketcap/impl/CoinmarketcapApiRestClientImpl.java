@@ -6,8 +6,8 @@ import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoStatus;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
-import io.algostrategy.client.coinmarketcap.param.AuxiliaryField;
-import io.algostrategy.client.coinmarketcap.param.SortField;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.SortField;
 import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
 import lombok.extern.java.Log;
 
@@ -117,7 +117,7 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
     @Override
     public Response<List<Currency>> getCurrencies(Integer start,
                                                   Integer limit,
-                                                  SortField sortField,
+                                                  io.algostrategy.client.coinmarketcap.domain.fiat.SortField sortField,
                                                   Boolean includeMetals) {
         return executeSync(coinmarketcapApiService.getCurrencies(start, limit, sortField, includeMetals));
     }

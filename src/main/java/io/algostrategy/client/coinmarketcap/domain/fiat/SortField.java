@@ -1,14 +1,15 @@
-package io.algostrategy.client.coinmarketcap.param;
+package io.algostrategy.client.coinmarketcap.domain.fiat;
 
 /**
  * The fields used to sort the data.
  */
-public enum WebSortField {
-    RANK("rank");
+public enum SortField {
+    ID("id"),
+    NAME("name");
 
     private final String name;
 
-    WebSortField(String name) {
+    SortField(String name) {
         this.name = name;
     }
 

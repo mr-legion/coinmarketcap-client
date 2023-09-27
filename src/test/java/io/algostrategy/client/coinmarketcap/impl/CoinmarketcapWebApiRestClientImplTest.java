@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static io.algostrategy.client.coinmarketcap.domain.web.MarketCategory.SPOT;
-import static io.algostrategy.client.coinmarketcap.param.WebSortField.RANK;
+import static io.algostrategy.client.coinmarketcap.domain.web.SortField.RANK;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

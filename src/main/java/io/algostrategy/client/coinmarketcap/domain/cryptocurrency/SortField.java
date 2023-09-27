@@ -1,11 +1,10 @@
-package io.algostrategy.client.coinmarketcap.param;
+package io.algostrategy.client.coinmarketcap.domain.cryptocurrency;
 
 /**
  * The fields used to sort the data.
  */
 public enum SortField {
     ID("id"),
-    NAME("name"),
     RANK("cmc_rank");
 
     private final String name;
