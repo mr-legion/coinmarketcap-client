@@ -69,5 +69,5 @@ public class DEXPool {
 
     private Boolean reverseOrder;
 
-    private Double rank;
+    private Integer rank;
 }

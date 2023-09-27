@@ -20,7 +20,7 @@ public class Cryptocurrency {
 
     private Integer id;
 
-    private Double rank;
+    private Integer rank;
 
     private String name;
     private String symbol;
