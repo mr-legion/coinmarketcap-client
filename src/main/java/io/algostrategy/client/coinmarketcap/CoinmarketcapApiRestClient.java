@@ -1,12 +1,9 @@
 package io.algostrategy.client.coinmarketcap;
 
 import io.algostrategy.client.coinmarketcap.domain.Response;
-import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
-import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoStatus;
-import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.*;
+import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
-import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField;
-import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.SortField;
 
 import java.util.List;
 
@@ -107,4 +104,15 @@ public interface CoinmarketcapApiRestClient {
                                            Integer limit,
                                            io.algostrategy.client.coinmarketcap.domain.fiat.SortField sortField,
                                            Boolean includeMetals);
+
+    // Exchange endpoints
+
+    /**
+     * Get exchanges.
+     *
+     * @param start offset the start (1-based index)
+     * @param limit specify the number of results, valid value: [1 .. 5000]
+     * @return exchanges
+     */
+    Response<List<Exchange>> getExchanges(Integer start, Integer limit);
 }

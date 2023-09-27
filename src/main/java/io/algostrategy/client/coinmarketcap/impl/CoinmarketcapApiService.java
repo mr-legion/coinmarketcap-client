@@ -3,8 +3,9 @@ package io.algostrategy.client.coinmarketcap.impl;
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
-import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.SortField;
+import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
+import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -49,4 +50,10 @@ public interface CoinmarketcapApiService {
                                                  @Query("limit") Integer limit,
                                                  @Query("sort") io.algostrategy.client.coinmarketcap.domain.fiat.SortField sortField,
                                                  @Query("include_metals") Boolean includeMetals);
+
+    // Exchange endpoints
+    @Headers(AUTHORIZATION_REQUIRED_HEADER)
+    @GET("/v1/exchange/map")
+    Call<Response<List<Exchange>>> getExchanges(@Query("start") Integer start,
+                                                @Query("limit") Integer limit);
 }

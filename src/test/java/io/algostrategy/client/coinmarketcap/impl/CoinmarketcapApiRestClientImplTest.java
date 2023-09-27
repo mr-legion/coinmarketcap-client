@@ -3,10 +3,11 @@ package io.algostrategy.client.coinmarketcap.impl;
 import io.algostrategy.client.coinmarketcap.CoinmarketcapApiClientFactory;
 import io.algostrategy.client.coinmarketcap.CoinmarketcapApiRestClient;
 import io.algostrategy.client.coinmarketcap.domain.Response;
+import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
+import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
-import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -71,6 +72,13 @@ public class CoinmarketcapApiRestClientImplTest {
     @Test
     public void getCurrencies_ShouldReturnCurrencies() {
         Response<List<Currency>> response = coinmarketcapApiRestClient.getCurrencies(null, null, null, null);
+        assertNotNull(response);
+        assertThat(response.getData(), is(not(empty())));
+    }
+
+    @Test
+    public void getExchanges_ShouldReturnExchanges() {
+        Response<List<Exchange>> response = coinmarketcapApiRestClient.getExchanges(null, null);
         assertNotNull(response);
         assertThat(response.getData(), is(not(empty())));
     }
