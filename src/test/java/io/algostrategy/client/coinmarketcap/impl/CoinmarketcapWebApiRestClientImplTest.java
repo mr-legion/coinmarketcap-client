@@ -1,7 +1,7 @@
 package io.algostrategy.client.coinmarketcap.impl;
 
 import com.google.common.collect.Lists;
-import io.algostrategy.client.coinmarketcap.CoinmarketcapWebApiClientFactory;
+import io.algostrategy.client.coinmarketcap.CoinmarketcapClientFactory;
 import io.algostrategy.client.coinmarketcap.CoinmarketcapWebApiRestClient;
 import io.algostrategy.client.coinmarketcap.domain.Page;
 import io.algostrategy.client.coinmarketcap.domain.Response;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class CoinmarketcapWebApiRestClientImplTest {
 
     private final CoinmarketcapWebApiRestClient coinmarketcapWebApiRestClient =
-            CoinmarketcapWebApiClientFactory.newInstance().newRestClient();
+            CoinmarketcapClientFactory.newInstance().newWebRestClient();
 
     @Test
     public void getMarkets_ShouldReturnAllMarkets() {

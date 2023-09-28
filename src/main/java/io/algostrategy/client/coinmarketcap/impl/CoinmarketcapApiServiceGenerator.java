@@ -31,17 +31,11 @@ public class CoinmarketcapApiServiceGenerator {
         mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL);
     }
 
-    private final OkHttpClient client;
-
-    public CoinmarketcapApiServiceGenerator(OkHttpClient client) {
-        this.client = client;
+    public static <S> S createService(OkHttpClient client, Class<S> serviceClass, String baseUrl) {
+        return createService(client, serviceClass, baseUrl, null);
     }
 
-    public <S> S createService(Class<S> serviceClass, String baseUrl) {
-        return createService(serviceClass, baseUrl, null);
-    }
-
-    public <S> S createService(Class<S> serviceClass, String baseUrl, String apiKey) {
+    public static <S> S createService(OkHttpClient client, Class<S> serviceClass, String baseUrl, String apiKey) {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(baseUrl)
