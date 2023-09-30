@@ -37,13 +37,6 @@ public class CoinmarketcapWebApiRestClientImplTest {
     }
 
     @Test
-    public void getDEXPools_ShouldReturnAllDEXPools() {
-        Response<Page<List<DEXPool>>> response = coinmarketcapWebApiRestClient.getDEXPools(1, RANK);
-        assertNotNull(response);
-        assertThat(response.getData().getData(), is(not(empty())));
-    }
-
-    @Test
     public void getDEXPools_ShouldReturnDEXPools() {
         Response<Page<List<DEXPool>>> response = coinmarketcapWebApiRestClient.getDEXPools(14, 1344, 1, RANK);
         assertNotNull(response);

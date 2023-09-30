@@ -3,18 +3,14 @@ package io.algostrategy.client.coinmarketcap.impl;
 import io.algostrategy.client.coinmarketcap.CoinmarketcapWebApiRestClient;
 import io.algostrategy.client.coinmarketcap.domain.Page;
 import io.algostrategy.client.coinmarketcap.domain.Response;
-import io.algostrategy.client.coinmarketcap.domain.web.DEXPool;
-import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
-import io.algostrategy.client.coinmarketcap.domain.web.Market;
-import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
-import io.algostrategy.client.coinmarketcap.domain.web.SortField;
+import io.algostrategy.client.coinmarketcap.domain.web.*;
 import lombok.extern.java.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
 import static io.algostrategy.client.coinmarketcap.domain.web.SortField.RANK;
+import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
 import static java.util.logging.Level.WARNING;
 
 /**
@@ -61,26 +57,29 @@ public class CoinmarketcapWebApiRestClientImpl implements CoinmarketcapWebApiRes
     }
 
     @Override
-    public List<DEXPool> getAllDEXPools() {
+    public List<DEXPool> getAllDEXPools(Integer chainId, Integer dexId) {
 
-        Page<List<DEXPool>> firstPage = getDEXPools(1, RANK).getData();
-        int totalPages = (int) Math.ceil((double) firstPage.getTotal() / firstPage.getCount());
+        List<DEXPool> dexPools = new ArrayList<>();
 
-        List<DEXPool> dexPools = new ArrayList<>(firstPage.getData());
-        for (int i = 2; i <= totalPages; i++) {
-            try {
-                dexPools.addAll(getDEXPools(i, RANK).getData().getData());
-            } catch (Exception e) {
-                log.log(WARNING, "Failed to load DEX pools sorted by rank, page " + i, e);
+        try {
+
+            Page<List<DEXPool>> firstPage = getDEXPools(chainId, dexId, 1, RANK).getData();
+            int totalPages = (int) Math.ceil((double) firstPage.getTotal() / firstPage.getCount());
+
+            dexPools.addAll(firstPage.getData());
+
+            for (int i = 2; i <= totalPages; i++) {
+                try {
+                    dexPools.addAll(getDEXPools(chainId, dexId, i, RANK).getData().getData());
+                } catch (Exception e) {
+                    log.log(WARNING, "Failed to load DEX pools sorted by rank, page " + i, e);
+                }
             }
+        } catch (Exception e) {
+            log.log(WARNING, "Failed to load DEX pools sorted by rank, page " + 1, e);
         }
 
         return dexPools;
-    }
-
-    @Override
-    public Response<Page<List<DEXPool>>> getDEXPools(Integer page, SortField sortField) {
-        return getDEXPools(null, null, page, sortField);
     }
 
     @Override
