@@ -20,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CoinmarketcapWebApiRestClientImplTest {
 
-    private final CoinmarketcapWebApiRestClient coinmarketcapWebApiRestClient =
-            CoinmarketcapClientFactory.newInstance().newWebRestClient();
+    private final CoinmarketcapWebApiRestClient coinmarketcapWebApiRestClient = CoinmarketcapClientFactory.newWebRestClient();
 
     @Test
     public void getMarkets_ShouldReturnAllMarkets() {

@@ -24,7 +24,7 @@ public class CoinmarketcapApiRestClientImplTest {
     @BeforeEach
     public void setUp() {
         String apiKey = System.getenv("API_KEY");
-        this.coinmarketcapApiRestClient = CoinmarketcapClientFactory.newInstance(apiKey).newRestClient();
+        this.coinmarketcapApiRestClient = CoinmarketcapClientFactory.newRestClient(apiKey);
     }
 
     @Test

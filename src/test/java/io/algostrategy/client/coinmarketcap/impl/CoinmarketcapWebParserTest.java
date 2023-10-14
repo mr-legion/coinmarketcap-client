@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class CoinmarketcapWebParserTest {
 
-    private final CoinmarketcapWebParser coinmarketcapWebParser = CoinmarketcapClientFactory.newInstance().newWebParser();
+    private final CoinmarketcapWebParser coinmarketcapWebParser = CoinmarketcapClientFactory.newWebParser();
 
     @Test
     public void parseDEXPage_ShouldReturnDEXPage() {
