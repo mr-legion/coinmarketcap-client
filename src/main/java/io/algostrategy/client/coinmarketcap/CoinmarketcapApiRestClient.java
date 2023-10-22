@@ -15,13 +15,6 @@ public interface CoinmarketcapApiRestClient {
     // Cryptocurrency endpoints
 
     /**
-     * Get all cryptocurrencies exclude auxiliary fields.
-     *
-     * @return cryptocurrencies
-     */
-    List<Cryptocurrency> getAllCryptosExcludeAUX();
-
-    /**
      * Get cryptocurrencies exclude auxiliary fields.
      *
      * @param start offset the start (1-based index)

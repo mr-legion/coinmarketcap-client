@@ -31,24 +31,6 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
     // Cryptocurrency endpoints
 
     @Override
-    public List<Cryptocurrency> getAllCryptosExcludeAUX() {
-
-        List<Cryptocurrency> cryptos = new ArrayList<>();
-
-        for (int start = 1, limit = 5000; ; start += limit) {
-
-            List<Cryptocurrency> currCryptos = getCryptosExcludeAUX(start, limit).getData();
-            cryptos.addAll(currCryptos);
-
-            if (currCryptos.size() < limit) {
-                break;
-            }
-        }
-
-        return cryptos;
-    }
-
-    @Override
     public Response<List<Cryptocurrency>> getCryptosExcludeAUX(Integer start, Integer limit) {
         return getCryptos(CryptoStatus.values(), start, limit, null, null, new AuxiliaryField[0]);
     }
