@@ -50,9 +50,9 @@ public interface CoinmarketcapApiRestClient {
      * @param auxiliaryFields to include auxiliary fields
      * @return cryptocurrency metadata
      */
-    List<CryptoMetadata> getCryptoMetadata(Integer[] ids,
-                                           Boolean skipInvalid,
-                                           AuxiliaryField[] auxiliaryFields);
+    Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
+                                                     Boolean skipInvalid,
+                                                     AuxiliaryField[] auxiliaryFields);
 
     /**
      * Get all cryptocurrency metadata. The execution takes long time and
@@ -66,12 +66,12 @@ public interface CoinmarketcapApiRestClient {
      * @param auxiliaryFields to include auxiliary fields
      * @return cryptocurrency metadata
      */
-    List<CryptoMetadata> getCryptoMetadata(Integer[] ids,
-                                           String[] slugs,
-                                           String[] symbols,
-                                           String address,
-                                           Boolean skipInvalid,
-                                           AuxiliaryField[] auxiliaryFields);
+    Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
+                                                     String[] slugs,
+                                                     String[] symbols,
+                                                     String address,
+                                                     Boolean skipInvalid,
+                                                     AuxiliaryField[] auxiliaryFields);
 
     // Currency endpoints
 

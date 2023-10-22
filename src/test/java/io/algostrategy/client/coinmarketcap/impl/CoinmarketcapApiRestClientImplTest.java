@@ -45,21 +45,21 @@ public class CoinmarketcapApiRestClientImplTest {
 
     @Test
     public void getCryptoMetadata_ShouldReturnCryptoMetadataIncludeAUX() {
-        Integer[] ids = {1, 2, 3};
+        String ids = "1,2,3";
         AuxiliaryField[] fields = {AuxiliaryField.URLS};
-        List<CryptoMetadata> cryptoMetadataList = coinmarketcapApiRestClient.getCryptoMetadata(ids, true, fields);
-        assertNotNull(cryptoMetadataList);
-        assertThat(cryptoMetadataList, is(not(empty())));
+        Response<List<CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(ids, true, fields);
+        assertNotNull(response.getData());
+        assertThat(response.getData(), is(not(empty())));
     }
 
     @Test
     public void getCryptoMetadata_ShouldReturnCryptoMetadata() {
-        Integer[] ids = {1, 2, 3};
-        List<CryptoMetadata> cryptoMetadataList = coinmarketcapApiRestClient.getCryptoMetadata(
+        String ids = "1,2,3";
+        Response<List<CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(
                 ids, null, null, null, null, null
         );
-        assertNotNull(cryptoMetadataList);
-        assertThat(cryptoMetadataList, is(not(empty())));
+        assertNotNull(response.getData());
+        assertThat(response.getData(), is(not(empty())));
     }
 
     @Test
