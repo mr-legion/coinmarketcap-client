@@ -7,7 +7,6 @@ import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.*;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
-import lombok.extern.java.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceG
 /**
  * Implementation of REST API using Retrofit with synchronous/blocking method calls.
  */
-@Log
 public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClient {
 
     private final CoinmarketcapApiService coinmarketcapApiService;
