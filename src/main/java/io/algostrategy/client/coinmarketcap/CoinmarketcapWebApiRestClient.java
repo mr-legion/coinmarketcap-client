@@ -28,14 +28,6 @@ public interface CoinmarketcapWebApiRestClient {
     Response<Exchange> getMarkets(Integer exchangeId, MarketCategory category, Integer start, Integer limit);
 
     /**
-     * Get all DEX pools for dexer on chain. The execution takes long time and
-     * some pools may be skipped if some requests fails. Default sort field 'rank'.
-     *
-     * @return DEX pools
-     */
-    List<DEXPool> getAllDEXPools(Integer chainId, Integer dexId);
-
-    /**
      * Get DEX pools.
      *
      * @param chainId   chain ID
