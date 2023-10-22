@@ -90,7 +90,7 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
 
     @Override
     public Response<List<Currency>> getOnlyCurrencies(Integer start, Integer limit) {
-        return executeSync(coinmarketcapApiService.getCurrencies(start, limit, null, false));
+        return getCurrencies(start, limit, null, false);
     }
 
     @Override
