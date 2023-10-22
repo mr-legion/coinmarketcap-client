@@ -3,7 +3,10 @@ package io.algostrategy.client.coinmarketcap.impl;
 import io.algostrategy.client.coinmarketcap.CoinmarketcapWebApiRestClient;
 import io.algostrategy.client.coinmarketcap.domain.Page;
 import io.algostrategy.client.coinmarketcap.domain.Response;
-import io.algostrategy.client.coinmarketcap.domain.web.*;
+import io.algostrategy.client.coinmarketcap.domain.web.DEXPool;
+import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
+import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
+import io.algostrategy.client.coinmarketcap.domain.web.SortField;
 import lombok.extern.java.Log;
 
 import java.util.ArrayList;
@@ -26,30 +29,6 @@ public class CoinmarketcapWebApiRestClientImpl implements CoinmarketcapWebApiRes
     }
 
     // Exchange endpoints
-
-    @Override
-    public List<Market> getMarkets(List<Integer> exchangeIds, MarketCategory category) {
-
-        List<Market> markets = new ArrayList<>();
-
-        for (Integer exchangeId : exchangeIds) {
-            try {
-                for (int start = 1, limit = 1000; ; start += limit) {
-
-                    Response<Exchange> response = getMarkets(exchangeId, category, start, limit);
-                    markets.addAll(response.getData().getMarkets());
-
-                    if (response.getData().getNumMarkets() <= (start + limit - 1)) {
-                        break;
-                    }
-                }
-            } catch (Exception e) {
-                log.log(WARNING, "Failed to load markets from exchange " + exchangeId, e);
-            }
-        }
-
-        return markets;
-    }
 
     @Override
     public Response<Exchange> getMarkets(Integer exchangeId, MarketCategory category, Integer start, Integer limit) {

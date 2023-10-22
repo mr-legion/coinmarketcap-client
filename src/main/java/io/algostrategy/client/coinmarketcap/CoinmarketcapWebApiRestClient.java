@@ -2,7 +2,10 @@ package io.algostrategy.client.coinmarketcap;
 
 import io.algostrategy.client.coinmarketcap.domain.Page;
 import io.algostrategy.client.coinmarketcap.domain.Response;
-import io.algostrategy.client.coinmarketcap.domain.web.*;
+import io.algostrategy.client.coinmarketcap.domain.web.DEXPool;
+import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
+import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
+import io.algostrategy.client.coinmarketcap.domain.web.SortField;
 
 import java.util.List;
 
@@ -12,16 +15,6 @@ import java.util.List;
 public interface CoinmarketcapWebApiRestClient {
 
     // Exchange endpoints
-
-    /**
-     * Get markets for exchanges. The execution takes long time and
-     * some markets may be skipped if some requests fails.
-     *
-     * @param exchangeIds for displaying
-     * @param category    of market
-     * @return markets
-     */
-    List<Market> getMarkets(List<Integer> exchangeIds, MarketCategory category);
 
     /**
      * Get exchange markets.
