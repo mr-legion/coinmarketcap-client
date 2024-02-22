@@ -3,7 +3,6 @@ package io.algostrategy.client.coinmarketcap.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.algostrategy.client.coinmarketcap.domain.web.DEXPage;
 import io.algostrategy.client.coinmarketcap.exception.CoinmarketcapWebParsingException;
-import lombok.AllArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -13,14 +12,21 @@ import static io.algostrategy.client.coinmarketcap.constant.CoinmarketcapApiCons
 /**
  * This class is used to parse Coinmarketcap web pages.
  */
-@AllArgsConstructor
 public class CoinmarketcapWebParser {
 
     private static final String DEX_PATH = "/rankings/exchanges/dex";
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private final OkHttpClient okHttpClient;
+
+    public CoinmarketcapWebParser() {
+        this(new OkHttpClient());
+    }
+
+    public CoinmarketcapWebParser(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
+    }
 
     public DEXPage parseDEXPage() {
 

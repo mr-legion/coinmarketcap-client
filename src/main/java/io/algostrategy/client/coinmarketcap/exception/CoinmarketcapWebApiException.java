@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.experimental.StandardException;
 
 /**
- * An exception which can occur while invoking methods of the API.
+ * An exception which can occur while invoking methods of the web API.
  */
 @AllArgsConstructor
 @Getter
 @StandardException
-public class CoinmarketcapApiException extends RuntimeException {
+public class CoinmarketcapWebApiException extends RuntimeException {
 
     private ResponseStatus error;
 

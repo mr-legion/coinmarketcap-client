@@ -1,7 +1,6 @@
 package io.algostrategy.client.coinmarketcap.impl;
 
 import io.algostrategy.client.coinmarketcap.CoinmarketcapApiRestClient;
-import io.algostrategy.client.coinmarketcap.CoinmarketcapClientFactory;
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
@@ -24,7 +23,7 @@ public class CoinmarketcapApiRestClientImplTest {
     @BeforeEach
     public void setUp() {
         String apiKey = System.getenv("API_KEY");
-        this.coinmarketcapApiRestClient = CoinmarketcapClientFactory.newRestClient(apiKey);
+        this.coinmarketcapApiRestClient = new CoinmarketcapApiRestClientImpl(apiKey);
     }
 
     @Test

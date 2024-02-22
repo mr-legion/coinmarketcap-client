@@ -1,6 +1,5 @@
 package io.algostrategy.client.coinmarketcap.impl;
 
-import io.algostrategy.client.coinmarketcap.CoinmarketcapClientFactory;
 import io.algostrategy.client.coinmarketcap.domain.web.DEXPage;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +8,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class CoinmarketcapWebParserTest {
 
-    private final CoinmarketcapWebParser coinmarketcapWebParser = CoinmarketcapClientFactory.newWebParser();
+    private final CoinmarketcapWebParser coinmarketcapWebParser = new CoinmarketcapWebParser();
 
     @Test
     public void parseDEXPage_ShouldReturnDEXPage() {

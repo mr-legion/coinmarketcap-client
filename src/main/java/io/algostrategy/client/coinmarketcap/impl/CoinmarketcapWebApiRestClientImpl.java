@@ -8,10 +8,12 @@ import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
 import io.algostrategy.client.coinmarketcap.domain.web.SortField;
 import lombok.extern.java.Log;
+import okhttp3.OkHttpClient;
 
 import java.util.List;
 
-import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
+import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapWebApiServiceGenerator.createService;
+import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapWebApiServiceGenerator.executeSync;
 
 /**
  * Implementation of Web REST API using Retrofit with synchronous/blocking method calls.
@@ -21,8 +23,12 @@ public class CoinmarketcapWebApiRestClientImpl implements CoinmarketcapWebApiRes
 
     private final CoinmarketcapWebApiService coinmarketcapWebApiService;
 
-    public CoinmarketcapWebApiRestClientImpl(CoinmarketcapWebApiService coinmarketcapWebApiService) {
-        this.coinmarketcapWebApiService = coinmarketcapWebApiService;
+    public CoinmarketcapWebApiRestClientImpl() {
+        this.coinmarketcapWebApiService = createService(CoinmarketcapWebApiService.class);
+    }
+
+    public CoinmarketcapWebApiRestClientImpl(OkHttpClient client) {
+        this.coinmarketcapWebApiService = createService(client, CoinmarketcapWebApiService.class);
     }
 
     // Exchange endpoints

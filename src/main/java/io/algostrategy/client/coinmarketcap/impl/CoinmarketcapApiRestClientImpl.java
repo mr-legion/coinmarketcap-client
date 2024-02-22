@@ -7,10 +7,12 @@ import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.*;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
+import okhttp3.OkHttpClient;
 
 import java.util.List;
 import java.util.Map;
 
+import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.createService;
 import static io.algostrategy.client.coinmarketcap.impl.CoinmarketcapApiServiceGenerator.executeSync;
 
 /**
@@ -20,8 +22,12 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
 
     private final CoinmarketcapApiService coinmarketcapApiService;
 
-    public CoinmarketcapApiRestClientImpl(CoinmarketcapApiService coinmarketcapApiService) {
-        this.coinmarketcapApiService = coinmarketcapApiService;
+    public CoinmarketcapApiRestClientImpl(String apiKey) {
+        this.coinmarketcapApiService = createService(apiKey, CoinmarketcapApiService.class);
+    }
+
+    public CoinmarketcapApiRestClientImpl(String apiKey, OkHttpClient client) {
+        this.coinmarketcapApiService = createService(apiKey, client, CoinmarketcapApiService.class);
     }
 
     // Cryptocurrency endpoints
