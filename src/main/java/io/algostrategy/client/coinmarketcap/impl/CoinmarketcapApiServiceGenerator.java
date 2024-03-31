@@ -70,7 +70,7 @@ public class CoinmarketcapApiServiceGenerator {
                 return response.body();
             } else {
                 Response errorResponse = getCoinmarketcapApiError(response);
-                throw new CoinmarketcapApiException(errorResponse.getStatus());
+                throw new CoinmarketcapApiException(errorResponse.getStatus().getMsg());
             }
         } catch (IOException e) {
             throw new CoinmarketcapApiException(e);

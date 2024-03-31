@@ -52,7 +52,7 @@ public class CoinmarketcapWebApiServiceGenerator {
             T response = call.execute().body();
 
             if (response instanceof Response && ((Response<?>) response).getStatus().getCode() != 0) {
-                throw new CoinmarketcapWebApiException(((Response<?>) response).getStatus());
+                throw new CoinmarketcapWebApiException(((Response<?>) response).getStatus().getMsg());
             }
 
             return response;
