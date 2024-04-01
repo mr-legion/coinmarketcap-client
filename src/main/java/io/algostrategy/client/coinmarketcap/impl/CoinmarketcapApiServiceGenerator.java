@@ -48,7 +48,6 @@ public class CoinmarketcapApiServiceGenerator {
         if (apiKey == null) {
             retrofitBuilder.client(client);
         } else {
-            // `adaptedClient` will use its own interceptor, but share thread pool etc with the 'parent' client
             AuthenticationInterceptor authInterceptor = new AuthenticationInterceptor(apiKey);
             OkHttpClient.Builder newBuilder = client.newBuilder();
             newBuilder.interceptors().add(0, authInterceptor);
