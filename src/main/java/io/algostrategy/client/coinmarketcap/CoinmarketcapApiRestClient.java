@@ -76,13 +76,11 @@ public interface CoinmarketcapApiRestClient {
     // Currency endpoints
 
     /**
-     * Get only currencies.
+     * Get only currencies. Start 1, limit 5000.
      *
-     * @param start offset the start (1-based index)
-     * @param limit specify the number of results, valid value: [1 .. 5000]
      * @return currencies
      */
-    Response<List<Currency>> getOnlyCurrencies(Integer start, Integer limit);
+    Response<List<Currency>> getOnlyCurrencies();
 
     /**
      * Get currencies.

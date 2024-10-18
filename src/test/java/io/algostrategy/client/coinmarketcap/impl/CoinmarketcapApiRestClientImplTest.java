@@ -63,7 +63,7 @@ public class CoinmarketcapApiRestClientImplTest {
 
     @Test
     public void getOnlyCurrencies_ShouldReturnCurrencies() {
-        Response<List<Currency>> response = coinmarketcapApiRestClient.getOnlyCurrencies(null, null);
+        Response<List<Currency>> response = coinmarketcapApiRestClient.getOnlyCurrencies();
         assertNotNull(response);
         assertThat(response.getData(), is(not(empty())));
     }

@@ -82,8 +82,8 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
     // Currency endpoints
 
     @Override
-    public Response<List<Currency>> getOnlyCurrencies(Integer start, Integer limit) {
-        return getCurrencies(start, limit, null, false);
+    public Response<List<Currency>> getOnlyCurrencies() {
+        return getCurrencies(null, null, null, false);
     }
 
     @Override
