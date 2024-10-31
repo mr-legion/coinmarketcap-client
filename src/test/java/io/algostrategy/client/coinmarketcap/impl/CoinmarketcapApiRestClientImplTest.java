@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField.URLS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -43,9 +44,17 @@ public class CoinmarketcapApiRestClientImplTest {
     }
 
     @Test
-    public void getCryptoMetadata_ShouldReturnCryptoMetadataIncludeAUX() {
+    public void getCryptoMetadata_ShouldReturnCryptoMetadataIncludeField() {
         String ids = "1,2,3";
-        AuxiliaryField[] fields = {AuxiliaryField.URLS};
+        Response<List<CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(ids, true, URLS);
+        assertNotNull(response.getData());
+        assertThat(response.getData(), is(not(empty())));
+    }
+
+    @Test
+    public void getCryptoMetadata_ShouldReturnCryptoMetadataIncludeFields() {
+        String ids = "1,2,3";
+        AuxiliaryField[] fields = {URLS};
         Response<List<CryptoMetadata>> response = coinmarketcapApiRestClient.getCryptoMetadata(ids, true, fields);
         assertNotNull(response.getData());
         assertThat(response.getData(), is(not(empty())));

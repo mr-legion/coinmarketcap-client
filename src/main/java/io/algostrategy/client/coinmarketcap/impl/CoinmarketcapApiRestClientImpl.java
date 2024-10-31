@@ -55,6 +55,13 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
     @Override
     public Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
                                                             Boolean skipInvalid,
+                                                            AuxiliaryField auxiliaryField) {
+        return getCryptoMetadata(ids, skipInvalid, new AuxiliaryField[]{auxiliaryField});
+    }
+
+    @Override
+    public Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
+                                                            Boolean skipInvalid,
                                                             AuxiliaryField[] auxiliaryFields) {
         return getCryptoMetadata(ids, null, null, null, skipInvalid, auxiliaryFields);
     }

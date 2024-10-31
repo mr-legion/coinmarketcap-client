@@ -45,6 +45,19 @@ public interface CoinmarketcapApiRestClient {
      * Get all cryptocurrency metadata. The execution takes long time and
      * some cryptocurrency metadata may be skipped if some requests fails.
      *
+     * @param ids            for displaying
+     * @param skipInvalid    skip validation rules
+     * @param auxiliaryField to include auxiliary field
+     * @return cryptocurrency metadata
+     */
+    Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
+                                                     Boolean skipInvalid,
+                                                     AuxiliaryField auxiliaryField);
+
+    /**
+     * Get all cryptocurrency metadata. The execution takes long time and
+     * some cryptocurrency metadata may be skipped if some requests fails.
+     *
      * @param ids             for displaying
      * @param skipInvalid     skip validation rules
      * @param auxiliaryFields to include auxiliary fields
