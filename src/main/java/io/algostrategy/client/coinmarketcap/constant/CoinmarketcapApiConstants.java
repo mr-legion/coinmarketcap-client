@@ -24,17 +24,6 @@ public class CoinmarketcapApiConstants {
     public static final String WEB_API_BASE_URL = "https://api." + BASE_DOMAIN;
 
     /**
-     * Web base URL.
-     */
-    public static final String WEB_BASE_URL = "https://" + BASE_DOMAIN;
-
-
-    /**
-     * HTTP Header to be used for API-KEY authentication.
-     */
-    public static final String API_KEY_HEADER = "X-CMC_PRO_API_KEY";
-
-    /**
      * Decorator to indicate that an endpoint requires authorization.
      */
     public static final String AUTHORIZATION_REQUIRED = "AUTHORIZATION";

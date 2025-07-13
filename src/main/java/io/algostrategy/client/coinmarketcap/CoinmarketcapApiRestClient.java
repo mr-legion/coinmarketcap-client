@@ -2,6 +2,7 @@ package io.algostrategy.client.coinmarketcap;
 
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.*;
+import io.algostrategy.client.coinmarketcap.domain.dex.Network;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 
@@ -26,12 +27,12 @@ public interface CoinmarketcapApiRestClient {
     /**
      * Get cryptocurrencies.
      *
-     * @param cryptoStatuses  for displaying
-     * @param start           offset the start (1-based index)
-     * @param limit           specify the number of results, valid value: [1 .. 5000]
-     * @param sortField       what field to sort the list
-     * @param symbols         symbols to return
-     * @param auxiliaryFields to include auxiliary fields
+     * @param cryptoStatuses for displaying
+     * @param start          offset the start (1-based index)
+     * @param limit          specify the number of results, valid value: [1 .. 5000]
+     * @param sortField      what field to sort the list
+     * @param symbols        symbols to return
+     * @param aux            to include auxiliary fields
      * @return cryptocurrencies
      */
     Response<List<Cryptocurrency>> getCryptos(CryptoStatus[] cryptoStatuses,
@@ -39,44 +40,31 @@ public interface CoinmarketcapApiRestClient {
                                               Integer limit,
                                               SortField sortField,
                                               String[] symbols,
-                                              AuxiliaryField[] auxiliaryFields);
+                                              AuxiliaryField[] aux);
 
     /**
      * Get all cryptocurrency metadata. The execution takes long time and
      * some cryptocurrency metadata may be skipped if some requests fails.
      *
-     * @param ids            for displaying
-     * @param skipInvalid    skip validation rules
-     * @param auxiliaryField to include auxiliary field
+     * @param ids         for displaying
+     * @param skipInvalid skip validation rules
+     * @param aux         to include auxiliary fields
      * @return cryptocurrency metadata
      */
     Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
                                                      Boolean skipInvalid,
-                                                     AuxiliaryField auxiliaryField);
+                                                     AuxiliaryField... aux);
 
     /**
      * Get all cryptocurrency metadata. The execution takes long time and
      * some cryptocurrency metadata may be skipped if some requests fails.
      *
-     * @param ids             for displaying
-     * @param skipInvalid     skip validation rules
-     * @param auxiliaryFields to include auxiliary fields
-     * @return cryptocurrency metadata
-     */
-    Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
-                                                     Boolean skipInvalid,
-                                                     AuxiliaryField[] auxiliaryFields);
-
-    /**
-     * Get all cryptocurrency metadata. The execution takes long time and
-     * some cryptocurrency metadata may be skipped if some requests fails.
-     *
-     * @param ids             for displaying
-     * @param slugs           slugs to return
-     * @param symbols         symbols to return
-     * @param address         address to return
-     * @param skipInvalid     skip validation rules
-     * @param auxiliaryFields to include auxiliary fields
+     * @param ids         for displaying
+     * @param slugs       slugs to return
+     * @param symbols     symbols to return
+     * @param address     address to return
+     * @param skipInvalid skip validation rules
+     * @param aux         to include auxiliary fields
      * @return cryptocurrency metadata
      */
     Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
@@ -84,7 +72,7 @@ public interface CoinmarketcapApiRestClient {
                                                      String[] symbols,
                                                      String address,
                                                      Boolean skipInvalid,
-                                                     AuxiliaryField[] auxiliaryFields);
+                                                     AuxiliaryField[] aux);
 
     // Currency endpoints
 
@@ -119,4 +107,18 @@ public interface CoinmarketcapApiRestClient {
      * @return exchanges
      */
     Response<List<Exchange>> getExchanges(Integer start, Integer limit);
+
+    // DEX endpoints
+
+    /**
+     * Get networks.
+     *
+     * @param start offset the start (1-based index)
+     * @param limit specify the number of results, valid value: [1 .. 500]
+     * @param aux   to include auxiliary fields
+     * @return networks
+     */
+    Response<List<Network>> getNetworks(Integer start,
+                                        Integer limit,
+                                        io.algostrategy.client.coinmarketcap.domain.dex.AuxiliaryField... aux);
 }

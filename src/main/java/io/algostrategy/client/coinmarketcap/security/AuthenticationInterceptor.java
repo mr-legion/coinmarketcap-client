@@ -6,7 +6,6 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-import static io.algostrategy.client.coinmarketcap.constant.CoinmarketcapApiConstants.API_KEY_HEADER;
 import static io.algostrategy.client.coinmarketcap.constant.CoinmarketcapApiConstants.AUTHORIZATION_REQUIRED;
 
 /**
@@ -32,7 +31,7 @@ public class AuthenticationInterceptor implements Interceptor {
 
         // Endpoint requires authorization
         if (isAuthorizationRequired) {
-            newRequestBuilder.addHeader(API_KEY_HEADER, apiKey);
+            newRequestBuilder.addHeader("X-CMC_PRO_API_KEY", apiKey);
             newRequestBuilder.tag(String.class, apiKey);
         }
 

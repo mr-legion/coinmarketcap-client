@@ -5,6 +5,7 @@ import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.CryptoMetadata;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.Cryptocurrency;
+import io.algostrategy.client.coinmarketcap.domain.dex.Network;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static io.algostrategy.client.coinmarketcap.domain.cryptocurrency.AuxiliaryField.URLS;
+import static io.algostrategy.client.coinmarketcap.domain.dex.AuxiliaryField.CRYPTO_ID;
+import static io.algostrategy.client.coinmarketcap.domain.dex.AuxiliaryField.WRAPPED_TOKEN_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,6 +29,8 @@ public class CoinmarketcapApiRestClientImplTest {
         String apiKey = System.getenv("API_KEY");
         this.coinmarketcapApiRestClient = new CoinmarketcapApiRestClientImpl(apiKey);
     }
+
+    // Cryptocurrency endpoints
 
     @Test
     public void getCryptosExcludeAUX_ShouldReturnCryptosExcludeAUX() {
@@ -70,6 +75,8 @@ public class CoinmarketcapApiRestClientImplTest {
         assertThat(response.getData(), is(not(empty())));
     }
 
+    // Fiat endpoints
+
     @Test
     public void getOnlyCurrencies_ShouldReturnCurrencies() {
         Response<List<Currency>> response = coinmarketcapApiRestClient.getOnlyCurrencies();
@@ -84,10 +91,21 @@ public class CoinmarketcapApiRestClientImplTest {
         assertThat(response.getData(), is(not(empty())));
     }
 
+    // Exchange endpoints
+
     @Test
     public void getExchanges_ShouldReturnExchanges() {
         Response<List<Exchange>> response = coinmarketcapApiRestClient.getExchanges(null, null);
         assertNotNull(response);
+        assertThat(response.getData(), is(not(empty())));
+    }
+
+    // DEX endpoints
+
+    @Test
+    public void getNetworks_ShouldReturnNetworksIncludeField() {
+        Response<List<Network>> response = coinmarketcapApiRestClient.getNetworks(1, 10, CRYPTO_ID, WRAPPED_TOKEN_ID);
+        assertNotNull(response.getData());
         assertThat(response.getData(), is(not(empty())));
     }
 }

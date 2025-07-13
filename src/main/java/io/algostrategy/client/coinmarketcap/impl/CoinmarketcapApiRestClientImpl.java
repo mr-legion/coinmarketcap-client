@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import io.algostrategy.client.coinmarketcap.CoinmarketcapApiRestClient;
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.*;
+import io.algostrategy.client.coinmarketcap.domain.dex.Network;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
 import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
@@ -34,7 +35,7 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
 
     @Override
     public Response<List<Cryptocurrency>> getCryptosExcludeAUX(Integer start, Integer limit) {
-        return getCryptos(CryptoStatus.values(), start, limit, null, null, new AuxiliaryField[0]);
+        return getCryptos(CryptoStatus.values(), start, limit, null, null);
     }
 
     @Override
@@ -43,27 +44,20 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
                                                      Integer limit,
                                                      SortField sortField,
                                                      String[] symbols,
-                                                     AuxiliaryField[] auxiliaryFields) {
+                                                     AuxiliaryField... aux) {
         String cryptoStatusesStr = ArrayUtils.arrayToString(cryptoStatuses);
         String symbolsStr = ArrayUtils.arrayToString(symbols);
-        String auxiliaryFieldsStr = ArrayUtils.arrayToString(auxiliaryFields);
+        String auxStr = ArrayUtils.arrayToString(aux);
         return executeSync(coinmarketcapApiService.getCryptocurrencies(
-                cryptoStatusesStr, start, limit, sortField, symbolsStr, auxiliaryFieldsStr
+                cryptoStatusesStr, start, limit, sortField, symbolsStr, auxStr
         ));
     }
 
     @Override
     public Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
                                                             Boolean skipInvalid,
-                                                            AuxiliaryField auxiliaryField) {
-        return getCryptoMetadata(ids, skipInvalid, new AuxiliaryField[]{auxiliaryField});
-    }
-
-    @Override
-    public Response<List<CryptoMetadata>> getCryptoMetadata(String ids,
-                                                            Boolean skipInvalid,
-                                                            AuxiliaryField[] auxiliaryFields) {
-        return getCryptoMetadata(ids, null, null, null, skipInvalid, auxiliaryFields);
+                                                            AuxiliaryField... aux) {
+        return getCryptoMetadata(ids, null, null, null, skipInvalid, aux);
     }
 
     @Override
@@ -72,15 +66,15 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
                                                             String[] symbols,
                                                             String address,
                                                             Boolean skipInvalid,
-                                                            AuxiliaryField[] auxiliaryFields) {
+                                                            AuxiliaryField[] aux) {
 
         String slugsStr = ArrayUtils.arrayToString(slugs);
         String symbolsStr = ArrayUtils.arrayToString(symbols);
-        String auxiliaryFieldsStr = ArrayUtils.arrayToString(auxiliaryFields);
+        String auxStr = ArrayUtils.arrayToString(aux);
 
         Response<Map<Integer, CryptoMetadata>> response = executeSync(
                 coinmarketcapApiService.getCryptocurrencyInfo(
-                        ids, slugsStr, symbolsStr, address, skipInvalid, auxiliaryFieldsStr
+                        ids, slugsStr, symbolsStr, address, skipInvalid, auxStr
                 ));
 
         return new Response<>(Lists.newArrayList(response.getData().values()), response.getStatus());
@@ -106,5 +100,15 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
     @Override
     public Response<List<Exchange>> getExchanges(Integer start, Integer limit) {
         return executeSync(coinmarketcapApiService.getExchanges(start, limit));
+    }
+
+
+    // DEX endpoints
+
+    @Override
+    public Response<List<Network>> getNetworks(Integer start,
+                                               Integer limit,
+                                               io.algostrategy.client.coinmarketcap.domain.dex.AuxiliaryField... aux) {
+        return executeSync(coinmarketcapApiService.getNetworks(start, limit, ArrayUtils.arrayToString(aux)));
     }
 }
