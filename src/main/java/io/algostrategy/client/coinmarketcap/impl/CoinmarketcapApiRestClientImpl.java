@@ -7,6 +7,7 @@ import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.*;
 import io.algostrategy.client.coinmarketcap.domain.dex.Network;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
+import io.algostrategy.client.coinmarketcap.domain.dex.DEXPool;
 import io.algostrategy.client.coinmarketcap.util.ArrayUtils;
 import okhttp3.OkHttpClient;
 
@@ -110,5 +111,10 @@ public class CoinmarketcapApiRestClientImpl implements CoinmarketcapApiRestClien
                                                Integer limit,
                                                io.algostrategy.client.coinmarketcap.domain.dex.AuxiliaryField... aux) {
         return executeSync(coinmarketcapApiService.getNetworks(start, limit, ArrayUtils.arrayToString(aux)));
+    }
+
+    @Override
+    public Response<List<DEXPool>> getDEXPools(Integer networkId, Integer limit, String scrollId) {
+        return executeSync(coinmarketcapApiService.getDEXPools(networkId, limit, scrollId));
     }
 }

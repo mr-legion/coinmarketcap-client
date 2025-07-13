@@ -1,13 +1,8 @@
 package io.algostrategy.client.coinmarketcap;
 
-import io.algostrategy.client.coinmarketcap.domain.Page;
 import io.algostrategy.client.coinmarketcap.domain.Response;
-import io.algostrategy.client.coinmarketcap.domain.web.DEXPool;
 import io.algostrategy.client.coinmarketcap.domain.web.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.web.MarketCategory;
-import io.algostrategy.client.coinmarketcap.domain.web.SortField;
-
-import java.util.List;
 
 /**
  * The API facade, supporting synchronous/blocking access Web REST API.
@@ -26,15 +21,4 @@ public interface CoinmarketcapWebApiRestClient {
      * @return markets
      */
     Response<Exchange> getMarkets(Integer exchangeId, MarketCategory category, Integer start, Integer limit);
-
-    /**
-     * Get DEX pools.
-     *
-     * @param chainId   chain ID
-     * @param dexId     DEX ID
-     * @param page      page number
-     * @param sortField what field to sort the list
-     * @return DEX pools
-     */
-    Response<Page<List<DEXPool>>> getDEXPools(Integer chainId, Integer dexId, Integer page, SortField sortField);
 }

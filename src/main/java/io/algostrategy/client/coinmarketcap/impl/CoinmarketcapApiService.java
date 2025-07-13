@@ -7,6 +7,7 @@ import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.SortField;
 import io.algostrategy.client.coinmarketcap.domain.dex.Network;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
+import io.algostrategy.client.coinmarketcap.domain.dex.DEXPool;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -67,4 +68,10 @@ public interface CoinmarketcapApiService {
     Call<Response<List<Network>>> getNetworks(@Query("start") Integer start,
                                               @Query("limit") Integer limit,
                                               @Query(value = "aux", encoded = true) String aux);
+
+    @Headers(AUTHORIZATION_REQUIRED_HEADER)
+    @GET("/v4/dex/spot-pairs/latest")
+    Call<Response<List<DEXPool>>> getDEXPools(@Query("network_id") Integer networkId,
+                                              @Query("limit") Integer limit,
+                                              @Query("scroll_id") String scrollId);
 }

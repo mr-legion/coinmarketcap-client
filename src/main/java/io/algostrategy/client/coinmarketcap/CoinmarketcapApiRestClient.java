@@ -2,6 +2,7 @@ package io.algostrategy.client.coinmarketcap;
 
 import io.algostrategy.client.coinmarketcap.domain.Response;
 import io.algostrategy.client.coinmarketcap.domain.cryptocurrency.*;
+import io.algostrategy.client.coinmarketcap.domain.dex.DEXPool;
 import io.algostrategy.client.coinmarketcap.domain.dex.Network;
 import io.algostrategy.client.coinmarketcap.domain.exchange.Exchange;
 import io.algostrategy.client.coinmarketcap.domain.fiat.Currency;
@@ -121,4 +122,14 @@ public interface CoinmarketcapApiRestClient {
     Response<List<Network>> getNetworks(Integer start,
                                         Integer limit,
                                         io.algostrategy.client.coinmarketcap.domain.dex.AuxiliaryField... aux);
+
+    /**
+     * Get DEX pools.
+     *
+     * @param networkId network ID
+     * @param limit     specify the number of results, valid value: [1 .. 100]
+     * @param scrollId  is an alternative to traditional pagination techniques
+     * @return DEX pools
+     */
+    Response<List<DEXPool>> getDEXPools(Integer networkId, Integer limit, String scrollId);
 }
