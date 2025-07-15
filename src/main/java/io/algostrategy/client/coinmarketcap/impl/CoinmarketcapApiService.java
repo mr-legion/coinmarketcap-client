@@ -72,7 +72,7 @@ public interface CoinmarketcapApiService {
     @Headers(AUTHORIZATION_REQUIRED_HEADER)
     @GET("/v4/dex/spot-pairs/latest")
     Call<Response<List<DEXPool>>> getDEXPools(@Query("network_id") Integer networkId,
-                                              @Query("dexer-id") Integer dexerId,
+                                              @Query("dex_id") Integer dexerId,
                                               @Query("limit") Integer limit,
                                               @Query("scroll_id") String scrollId);
 }
