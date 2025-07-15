@@ -132,4 +132,15 @@ public interface CoinmarketcapApiRestClient {
      * @return DEX pools
      */
     Response<List<DEXPool>> getDEXPools(Integer networkId, Integer limit, String scrollId);
+
+    /**
+     * Get DEX pools.
+     *
+     * @param networkId network ID
+     * @param dexerId   dexer ID
+     * @param limit     specify the number of results, valid value: [1 .. 100]
+     * @param scrollId  is an alternative to traditional pagination techniques
+     * @return DEX pools
+     */
+    Response<List<DEXPool>> getDEXPools(Integer networkId, Integer dexerId, Integer limit, String scrollId);
 }

@@ -111,8 +111,15 @@ public class CoinmarketcapApiRestClientImplTest {
     }
 
     @Test
-    public void getDEXPools_ShouldReturnDEXPools() {
+    public void getDEXPools_ShouldReturnDEXPools_WhenUsingNetworkId() {
         Response<List<DEXPool>> response = coinmarketcapApiRestClient.getDEXPools(1, 10, null);
+        assertNotNull(response);
+        assertThat(response.getData(), is(not(empty())));
+    }
+
+    @Test
+    public void getDEXPools_ShouldReturnDEXPools_WhenUsingNetworkIdAndDexerId() {
+        Response<List<DEXPool>> response = coinmarketcapApiRestClient.getDEXPools(14, 1344, 10, null);
         assertNotNull(response);
         assertThat(response.getData(), is(not(empty())));
     }
